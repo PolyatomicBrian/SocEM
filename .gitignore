@@ -1,0 +1,3 @@
+venv-SocEM/
+db.sqlite3
+*.pyc
