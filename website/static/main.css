@@ -1,0 +1,12 @@
+
+.col-left {
+    float: left;
+    width: 30%;
+}
+
+.col-right {
+    float: left;
+    width: 60%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
