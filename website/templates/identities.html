@@ -2,8 +2,37 @@
 
 {% block content %}
 <h1>Your Identities</h1>
-<p>
-Sed hendrerit lorem elit, vel tincidunt ipsum elementum at. Praesent tristique nec nunc et dignissim. Vestibulum ac congue ligula, id egestas nunc. Duis lacinia consectetur bibendum. Suspendisse fermentum fringilla condimentum. Morbi placerat consequat ligula, non rhoncus arcu euismod et. Sed nec pretium diam. Quisque sagittis condimentum malesuada. Aliquam efficitur mattis augue, eu rhoncus elit. Aliquam sed rhoncus augue. Sed consequat ultricies nunc, auctor tincidunt eros. Proin feugiat ipsum quis nibh commodo, sed blandit tortor pretium.
-</p>
+
+{% if identities %}
+<div class="col-left">
+  <h2>Recently Created</h2>
+  {% for identity in identities %}
+  <ul>
+    <li>{{identity}}</li>
+  </ul>
+  {% endfor %}
+</div>
+<div class="col-right">
+  <h2>Create an Identity</h2>
+  <form action="/identities" method="post">{% csrf_token %}
+      {{form.email.errors}} {{form.email}}
+      {{form.password.errors}} {{form.password}}
+      <input name="create" type="submit" value="Create Identity">
+  </form>
+  <h6>Note: Passwords are currently stored in plaintext. Please use a throwaway account.</h6>
+</div>
+{% else %}
+<h2>Create an Identity</h2>
+<form action="/identities" method="post">{% csrf_token %}
+  {{form.email.errors}} {{form.email}}
+  {{form.password.errors}} {{form.password}}
+<!--
+  <input name="email" type="text" placeholder="Email">
+  <input name="password" type="password" placeholder="Password">
+-->
+  <input name="create" type="submit" value="Create Identity">
+</form>
+<h6>Note: Passwords are currently stored in plaintext. Please use a throwaway account.</h6>
+{% endif %}
 
 {% endblock %}
