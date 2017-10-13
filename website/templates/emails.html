@@ -1,9 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Custom Emails</h1>
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed justo justo. Aliquam neque turpis, bibendum at iaculis ut, semper tristique nulla. Suspendisse porta ultricies vehicula. Proin sit amet tincidunt justo. Phasellus in convallis tortor, quis tempor metus. Ut molestie ultrices libero et tristique. Nullam at viverra massa, eget convallis nulla. Etiam viverra nunc condimentum tellus condimentum cursus. Nam id dui cursus, dapibus mi nec, consectetur urna. Pellentesque vulputate faucibus est. Praesent finibus velit enim, sed tempus enim accumsan eu. In hac habitasse platea dictumst. Mauris gravida risus id nulla tincidunt ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur velit metus, a lacinia nulla feugiat at. Aliquam aliquam tempus velit, at faucibus odio egestas id.
-</p>
+<h1>Emails</h1>
+
+{% if emails %}
+
+
+<div class="col-left">
+  <h2>Your Custom Emails</h2>
+  {% for email in emails %}
+  <ul>
+    <li>{{email}}</li>
+  </ul>
+  {% endfor %}
+</div>
+<div class="col-right">
+  <h2>Create a Custom Email</h2>
+  <form action="/emails" method="post">{% csrf_token %}
+    {{form.subject.errors}} {{form.subject}}
+    {{form.header.errors}} {{form.header}}
+    {{form.content.errors}} {{form.content}}
+    {{form.signature.errors}} {{form.signature}}
+    <input name="create" type="submit" value="Create Identity">
+  </form>
+</div>
+
+{% else %}
+
+<h2>Create a Custom Email</h2>
+<form action="/emails" method="post">{% csrf_token %}
+  {{form.subject.errors}} {{form.subject}}
+  {{form.header.errors}} {{form.header}}
+  {{form.content.errors}} {{form.content}}
+  {{form.signature.errors}} {{form.signature}}
+  <input name="create" type="submit" value="Create Identity">
+</form>
+
+{% endif %}
 
 {% endblock %}
